@@ -14,7 +14,7 @@ bool Achtung(int size, unsigned short int position)
 		HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hConsoleHandle, 4);
 		cout << "ERROR: " << "Going beyond the vector limit! " << endl;
-		SetConsoleTextAttribute(hConsoleHandle, 15);
+		SetConsoleTextAttribute(hConsoleHandle, 7);
 		return true;
 	}
 	else return false;
@@ -22,6 +22,7 @@ bool Achtung(int size, unsigned short int position)
 template<typename T>
 void vec_print(vector<T>& vec)
 {
+	/*for (typename vector<T>::const_iterator it = vec.begin(); it != vec.end(); it++)cout << *it << endl;*/
 	cout << "Pos\t" << "AllVal\t\t" << "Val" << endl;
 	T* data = vec.data();
 	for (int i = 0; i <= vec.capacity(); i++)
@@ -33,7 +34,7 @@ void vec_print(vector<T>& vec)
 }
 
 template<typename T>
-void vec_info(vector<T>& vec)
+void vec_info(const vector<T>& vec)
 {
 	cout << "Size: " << vec.size() << endl;
 	cout << "Capasity: " << vec.capacity() << endl;
@@ -45,6 +46,13 @@ void vec_insetr(vector<T>& vec, unsigned short int position, T value )
 {
 	if (Achtung(vec.size(), position))return;
 	vec.insert(vec.begin() + position, value);
+}
+
+template<typename T>
+void vec_insetr_count(vector<T>& vec, unsigned short int position, unsigned short int count, T value)
+{
+	if (Achtung(vec.size(), position))return;
+	vec.insert(vec.begin() + position,count, value);
 }
 
 template<typename T>
@@ -70,7 +78,7 @@ void main()
 #endif // STL_ARRAY
 
 #ifdef STL_VECTOR
-	vector<double> vec = { 0,1,1,2,3,5,8,13,21,34,55,89,144,232 };
+	vector<int> vec = { 0,1,1,2,3,5,8,13,21,34,55,89,144,232 };
 	vec_info(vec);
 	vec_print(vec);
 	//int* data = vec.data();
@@ -87,17 +95,34 @@ void main()
 	//{
 	//	cerr << e.what() << endl;
 	//}
-	unsigned short int position;
-	double value;
+	unsigned short int position, count;
+	int value;
 	cout << "Enter the insertion position " << "(form 0 for " << vec.size() << "):"; cin >> position;
 	cout << "Enter the value to insert: "; cin >> value;
 	vec_insetr(vec, position, value);
 	vec_info(vec);
 	vec_print(vec);
+
+	cout << "Enter the insertion position " << "(form 0 for " << vec.size() << "):"; cin >> position;
+	cout << "Enter the value to insert: "; cin >> value;
+	cout << "Âkeep the number of repetitions when inserting: "; cin >> count;
+	vec_insetr_count(vec, position,count,value);
+	vec_info(vec);
+	vec_print(vec);
+
 	cout << "Enter the deletion position " << "(form 0 for " << vec.size()-1 << "):" ; cin >> position;
 	vec_erase(vec, position);
 	vec_info(vec);
 	vec_print(vec);
+
+	vector<int> powers = { 1024,2048,4096,8191,16384 };
+	//vec.insert(vec.begin() + 3, powers.begin(), powers.end());
+	//vec_info(vec);
+	//for (int i : vec)cout << i << endl;
+	////vec_print(vec);
+	//vec.insert(vec.begin() + 3, {256,384,512,768});
+	//vec_info(vec);
+	//for (int i : vec)cout << i << endl;
 #endif // STL_VECTOR
 
 }
