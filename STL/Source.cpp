@@ -2,6 +2,8 @@
 #include<Windows.h>
 #include<array>
 #include<vector>
+#include<deque>
+#include<stack>
 using namespace std;
 using std::cout;
 using std::cin;
@@ -63,7 +65,8 @@ void vec_erase(vector<T>& vec, unsigned short int position)
 }
 
 //#define STL_ARRAY
-#define STL_VECTOR
+//#define STL_VECTOR
+//#define STL_DEQUE
 
 void main()
 {
@@ -81,6 +84,7 @@ void main()
 	vector<int> vec = { 0,1,1,2,3,5,8,13,21,34,55,89,144,232 };
 	vec_info(vec);
 	vec_print(vec);
+
 	//int* data = vec.data();
 	//try
 	//{
@@ -125,4 +129,18 @@ void main()
 	//for (int i : vec)cout << i << endl;
 #endif // STL_VECTOR
 
+#ifdef STL_DEQUE
+	deque<int> dec = { 0,1,1,2,3,5,8,13,21,34,55,89,144,232 };
+	cout << sizeof(dec) << endl;
+	dec.push_back(34);
+	for (int i = 0; i < dec.size(); i++)cout << dec[i] << endl;
+	cout << endl;
+	deque<int> dec2 = { 0,1,1 };
+	for (int i = 0; i < dec.size(); i++)cout << dec[i] << endl;
+	cout << endl;
+	for (int i = 0; i < dec2.size(); i++)cout << dec2[i] << endl;
+#endif // STL_DEQUE
+
+	stack<int> stack;
+	cout << sizeof(stack) << endl;
 }
