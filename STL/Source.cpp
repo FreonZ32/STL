@@ -1,5 +1,5 @@
 #include<iostream>
-#include <Windows.h>
+#include<Windows.h>
 #include<array>
 #include<vector>
 using namespace std;
@@ -7,16 +7,13 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-//#define STL_ARRAY
-#define STL_VECTOR
-
 bool Achtung(int size, unsigned short int position)
 {
 	if (position > size)
 	{
 		HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hConsoleHandle, 4);
-		cout << "Going beyond the vector limit! " << endl;
+		cout << "ERROR: " << "Going beyond the vector limit! " << endl;
 		SetConsoleTextAttribute(hConsoleHandle, 15);
 		return true;
 	}
@@ -33,11 +30,8 @@ void vec_print(vector<T>& vec)
 		if (i < vec.size())cout << "\t\t" << vec[i];
 		cout << endl;
 	}
-	/*for (int i = 0; i < vec.size(); i++)
-	{
-		cout << i << ":\t" << vec[i] << endl;
-	}*/
 }
+
 template<typename T>
 void vec_info(vector<T>& vec)
 {
@@ -45,18 +39,23 @@ void vec_info(vector<T>& vec)
 	cout << "Capasity: " << vec.capacity() << endl;
 	cout << "MaxSize: " << vec.max_size() << endl;
 }
+
 template<typename T>
 void vec_insetr(vector<T>& vec, unsigned short int position, T value )
 {
 	if (Achtung(vec.size(), position))return;
 	vec.insert(vec.begin() + position, value);
 }
+
 template<typename T>
 void vec_erase(vector<T>& vec, unsigned short int position)
 {
 	if (Achtung(vec.size()-1, position))return;
 	vec.erase(vec.begin() + position);
 }
+
+//#define STL_ARRAY
+#define STL_VECTOR
 
 void main()
 {
@@ -73,6 +72,7 @@ void main()
 #ifdef STL_VECTOR
 	vector<double> vec = { 0,1,1,2,3,5,8,13,21,34,55,89,144,232 };
 	vec_info(vec);
+	vec_print(vec);
 	//int* data = vec.data();
 	//try
 	//{
@@ -87,7 +87,6 @@ void main()
 	//{
 	//	cerr << e.what() << endl;
 	//}
-	vec_print(vec);
 	unsigned short int position;
 	double value;
 	cout << "Enter the insertion position " << "(form 0 for " << vec.size() << "):"; cin >> position;
