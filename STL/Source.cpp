@@ -4,6 +4,8 @@
 #include<vector>
 #include<deque>
 #include<stack>
+#include<list>
+#include<iterator>
 using namespace std;
 using std::cout;
 using std::cin;
@@ -24,7 +26,7 @@ bool Achtung(int size, unsigned short int position)
 template<typename T>
 void vec_print(vector<T>& vec)
 {
-	/*for (typename vector<T>::const_iterator it = vec.begin(); it != vec.end(); it++)cout << *it << endl;*/
+	//for (typename vector<T>::const_iterator it = vec.begin(); it != vec.end(); it++)cout << *it << endl;*/
 	cout << "Pos\t" << "AllVal\t\t" << "Val" << endl;
 	T* data = vec.data();
 	for (int i = 0; i <= vec.capacity(); i++)
@@ -36,6 +38,17 @@ void vec_print(vector<T>& vec)
 }
 
 template<typename T>
+void list_print(list<T>& list)
+{
+	int i = 0;
+	for(T& it : list)cout << i++ << "\t" << it << endl;
+	//for(auto& it: list)cout << i++ << "\t" << it << endl;
+	//copy(list.begin(), list.end(),ostream_iterator<int>(cout, "\n"));
+	cout << endl;
+}
+
+
+template<typename T>
 void vec_info(const vector<T>& vec)
 {
 	cout << "Size: " << vec.size() << endl;
@@ -44,14 +57,30 @@ void vec_info(const vector<T>& vec)
 }
 
 template<typename T>
-void vec_insetr(vector<T>& vec, unsigned short int position, T value )
+void list_info(const list<T>& list)
+{
+	cout << "Size: " << list.size() << endl;
+	cout << "MaxSize: " << list.max_size() << endl;
+}
+
+template<typename T>
+void vec_insert(vector<T>& vec, unsigned short int position, T value )
 {
 	if (Achtung(vec.size(), position))return;
 	vec.insert(vec.begin() + position, value);
 }
 
 template<typename T>
-void vec_insetr_count(vector<T>& vec, unsigned short int position, unsigned short int count, T value)
+void list_insert(list<T>& list, unsigned short int position, T value)
+{
+	if (Achtung(list.size(), position))return;
+	std::list<int>::iterator it = list.begin();
+	for (it; position > 0; position--, it++);
+	list.insert(it, value);
+}
+
+template<typename T>
+void vec_insert_count(vector<T>& vec, unsigned short int position, unsigned short int count, T value)
 {
 	if (Achtung(vec.size(), position))return;
 	vec.insert(vec.begin() + position,count, value);
@@ -64,9 +93,20 @@ void vec_erase(vector<T>& vec, unsigned short int position)
 	vec.erase(vec.begin() + position);
 }
 
+template<typename T>
+void list_erase(list<T>& list, unsigned short int position)
+{
+	if (Achtung(list.size() - 1, position))return;
+	std::list<int>::iterator it = list.begin();
+	for (it; position > 0; position--, it++);
+	list.erase(it);
+}
+
 //#define STL_ARRAY
 //#define STL_VECTOR
 //#define STL_DEQUE
+#define LIST
+
 
 void main()
 {
@@ -103,14 +143,14 @@ void main()
 	int value;
 	cout << "Enter the insertion position " << "(form 0 for " << vec.size() << "):"; cin >> position;
 	cout << "Enter the value to insert: "; cin >> value;
-	vec_insetr(vec, position, value);
+	vec_insert(vec, position, value);
 	vec_info(vec);
 	vec_print(vec);
 
 	cout << "Enter the insertion position " << "(form 0 for " << vec.size() << "):"; cin >> position;
 	cout << "Enter the value to insert: "; cin >> value;
 	cout << "Âkeep the number of repetitions when inserting: "; cin >> count;
-	vec_insetr_count(vec, position,count,value);
+	vec_insert_count(vec, position,count,value);
 	vec_info(vec);
 	vec_print(vec);
 
@@ -141,6 +181,24 @@ void main()
 	for (int i = 0; i < dec2.size(); i++)cout << dec2[i] << endl;
 #endif // STL_DEQUE
 
-	stack<int> stack;
-	cout << sizeof(stack) << endl;
+#ifdef LIST
+	unsigned short int position, count;
+	int value;
+	list<int> list = { 0,1,1,2,3,5,8,13,21,34,55,89,144,232 };
+	list_info(list);
+	list_print(list);
+
+	cout << "Enter the insertion position " << "(form 0 for " << list.size() << "):"; cin >> position;
+	cout << "Enter the value to insert: "; cin >> value;
+	list_insert(list, position, value);
+	list_info(list);
+	list_print(list);
+
+	cout << "Enter the deletion position " << "(form 0 for " << list.size() - 1 << "):"; cin >> position;
+	list_erase(list, position);
+	list_info(list);
+	list_print(list);
+#endif // LIST
+
+
 }
