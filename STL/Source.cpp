@@ -6,6 +6,7 @@
 #include<stack>
 #include<list>
 #include<iterator>
+#include<forward_list>
 using namespace std;
 using std::cout;
 using std::cin;
@@ -98,6 +99,7 @@ void list_erase(list<T>& list, unsigned short int position)
 {
 	if (Achtung(list.size() - 1, position))return;
 	std::list<int>::iterator it = list.begin();
+	//advance(it, position);
 	for (it; position > 0; position--, it++);
 	list.erase(it);
 }
@@ -105,11 +107,14 @@ void list_erase(list<T>& list, unsigned short int position)
 //#define STL_ARRAY
 //#define STL_VECTOR
 //#define STL_DEQUE
-#define LIST
+//#define LIST
+#define FORWARDLIST
 
 
 void main()
 {
+	using namespace std;
+
 	setlocale(LC_ALL, "rus");
 #ifdef STL_ARRAY
 	array<int, 5> arr = { 3,5,8,13,21 };
@@ -200,5 +205,19 @@ void main()
 	list_print(list);
 #endif // LIST
 
+#ifdef FORWARDLIST
+	//using std::forward_list;
+	//using std::list;
+	std::forward_list<int> list1 = { 3,5,8,13,21 };
+	list1.push_front(123);
+	for (forward_list<int>::iterator it = list1.begin(); it != list1.end(); it++)cout << *it << endl;
+	cout << endl;
+	list1.reverse();
+	list1.push_front(123);
+	list1.reverse();
+	for (int i : list1)cout << i << "\t"; cout << endl;
+	
+	list<int> list2;
+#endif // FORWARDLIST
 
 }
