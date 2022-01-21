@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<list>
 #include<string>
 #include<sstream>
@@ -35,20 +35,20 @@ void fill_map(map <string, list<string>>& base, unsigned short int elements)
 		for (int i = 1 + rand() % 8; i > 0; i--)
 		{
 			stringstream kmphss; string kmph; kmphss << (100 + rand() % 120); kmphss >> kmph;
-			string c1 = { "Превышение скорости (допустимая 100км/ч) " };
-			c1.append(kmph); c1.append("км/ч");
+			string c1 = { "РџСЂРµРІС‹С€РµРЅРёРµ СЃРєРѕСЂРѕСЃС‚Рё (РґРѕРїСѓСЃС‚РёРјР°СЏ 100РєРј/С‡) " };
+			c1.append(kmph); c1.append("РєРј/С‡");
 			int k = rand() % 9;
 			switch (k)
 			{
 			case 0:contravention.push_back(c1); break;
-			case 1:contravention.push_back("Проезд на запрещающий цвет светофора"); break;
-			case 2:contravention.push_back("Пересечение сплошной"); break;
-			case 3:contravention.push_back("Украл у сотрудника свисток при осмотре. На вопрос зачем, ответил \"Це по приколу\"."); break;
-			case 4:contravention.push_back("Остановка в запрещенном месте"); break;
-			case 5:contravention.push_back("Нарушение правил применения ремней безопасности"); break;
-			case 6:contravention.push_back("Нарушение правил маневрирования"); break;
-			case 7:contravention.push_back("Набросился на инспектора с ложкой"); break;
-			case 8:contravention.push_back("Был остановлен в нетрезвом состоянии на телеге, пытался сбежать"); break;
+			case 1:contravention.push_back("РџСЂРѕРµР·Рґ РЅР° Р·Р°РїСЂРµС‰Р°СЋС‰РёР№ С†РІРµС‚ СЃРІРµС‚РѕС„РѕСЂР°"); break;
+			case 2:contravention.push_back("РџРµСЂРµСЃРµС‡РµРЅРёРµ СЃРїР»РѕС€РЅРѕР№"); break;
+			case 3:contravention.push_back("РЈРєСЂР°Р» Сѓ СЃРѕС‚СЂСѓРґРЅРёРєР° СЃРІРёСЃС‚РѕРє РїСЂРё РѕСЃРјРѕС‚СЂРµ. РќР° РІРѕРїСЂРѕСЃ Р·Р°С‡РµРј, РѕС‚РІРµС‚РёР» \"Р¦Рµ РїРѕ РїСЂРёРєРѕР»Сѓ\"."); break;
+			case 4:contravention.push_back("РћСЃС‚Р°РЅРѕРІРєР° РІ Р·Р°РїСЂРµС‰РµРЅРЅРѕРј РјРµСЃС‚Рµ"); break;
+			case 5:contravention.push_back("РќР°СЂСѓС€РµРЅРёРµ РїСЂР°РІРёР» РїСЂРёРјРµРЅРµРЅРёСЏ СЂРµРјРЅРµР№ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё"); break;
+			case 6:contravention.push_back("РќР°СЂСѓС€РµРЅРёРµ РїСЂР°РІРёР» РјР°РЅРµРІСЂРёСЂРѕРІР°РЅРёСЏ"); break;
+			case 7:contravention.push_back("РќР°Р±СЂРѕСЃРёР»СЃСЏ РЅР° РёРЅСЃРїРµРєС‚РѕСЂР° СЃ Р»РѕР¶РєРѕР№"); break;
+			case 8:contravention.push_back("Р‘С‹Р» РѕСЃС‚Р°РЅРѕРІР»РµРЅ РІ РЅРµС‚СЂРµР·РІРѕРј СЃРѕСЃС‚РѕСЏРЅРёРё РЅР° С‚РµР»РµРіРµ, РїС‹С‚Р°Р»СЃСЏ СЃР±РµР¶Р°С‚СЊ"); break;
 			default:break;
 			}
 		}
@@ -93,7 +93,7 @@ void print_info_number(map <string, list<string>>& base, string& number)
 		for (string it2 : it->second)cout << it2 << ",";
 		cout << "\b;" << endl;
 	}
-	else cout << "Данного номера не найдено в базе! " << endl;
+	else cout << "Р”Р°РЅРЅРѕРіРѕ РЅРѕРјРµСЂР° РЅРµ РЅР°Р№РґРµРЅРѕ РІ Р±Р°Р·Рµ! " << endl;
 	cout << endl;
 }
 
@@ -107,16 +107,16 @@ void main()
 	SetConsoleOutputCP(1251);
 	map <string, list<string>>Base;
 	int number = 0;
-	cout << "Сколько элементов хотите вставить?: "; cin >> number;
+	cout << "РЎРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ С…РѕС‚РёС‚Рµ РІСЃС‚Р°РІРёС‚СЊ?: "; cin >> number;
 	fill_map(Base, number);
 	print_all_map(Base);
 	string num;
-	cout << "Какой номер хотите распечатать?: "; cin >> num;
+	cout << "РљР°РєРѕР№ РЅРѕРјРµСЂ С…РѕС‚РёС‚Рµ СЂР°СЃРїРµС‡Р°С‚Р°С‚СЊ?: "; cin >> num;
 	print_info_number(Base, num);
-	cout << "Введите номер: "; cin >> num;
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ: "; cin >> num;
 	string contravention;
-	cin.get();	//Сatch Enter after num cin;
-	cout << "Введите правонарушение в формате (дата: Правонарушение): "; getline(cin, contravention);
+	cin.get();	//РЎatch Enter after num cin;
+	cout << "Р’РІРµРґРёС‚Рµ РїСЂР°РІРѕРЅР°СЂСѓС€РµРЅРёРµ РІ С„РѕСЂРјР°С‚Рµ (РґР°С‚Р°: РџСЂР°РІРѕРЅР°СЂСѓС€РµРЅРёРµ): "; getline(cin, contravention);
 	insert_new(Base, num, contravention);
 	print_all_map(Base);
 #endif // GAI
