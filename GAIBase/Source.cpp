@@ -63,6 +63,7 @@ void fill_map(map <string, list<string>>& base, unsigned short int elements)
 	}
 }
 
+
 void insert_new(map <string, list<string>>& base, string num, string contravention)
 {
 	map<string, list<string>>::iterator it = base.find(num);
@@ -81,7 +82,7 @@ void print_all_map(map <string, list<string>>& base)
 	for (map<string,list<string>>::iterator it = base.begin(); it != base.end(); ++it)
 	{
 		cout << it->first << endl;
-		for (string it2 : it->second)cout << "  " << it2 << ";" << endl;
+		for (string i : it->second)cout << "  " << i << ";" << endl;
 	}
 	cout << endl;
 }
@@ -91,13 +92,42 @@ void print_info_number(map <string, list<string>>& base, string& number)
 	map<string, list<string>>::iterator it = base.find(number);
 	if (it != base.end())
 	{
-		cout << it->first << ":\t";
-		for (string it2 : it->second)cout << it2 << ",";
-		cout << "\b;" << endl;
+		cout << it->first << endl;
+		for (string i : it->second)cout << "  " << i << ";" << endl;
 	}
 	else cout << "Данного номера не найдено в базе! " << endl;
 	cout << endl;
 }
+
+void find_crime_by_smth(map <string, list<string>>& base, string& str, string what)
+{
+	string rep;
+	for (map<string, list<string>>::iterator it = base.begin(); it != base.end(); ++it)
+	{
+		for (string i : it->second)
+		{
+			if (what == "Data")
+			{
+				if (i.compare(0, i.find_first_of(":"), str) == 0)
+				{
+					if(!it->first.compare(rep) == 0)
+					{rep = it->first; cout << it->first << endl;}
+					cout << "  " << i << ";" << endl;
+				}
+			}
+			if (what == "Crime")
+			{
+				if (i.compare(i.find_first_of(":") + 2, i.size(), str) == 0)
+				{
+					if (!it->first.compare(rep) == 0)
+					{rep = it->first; cout << it->first << endl;}
+					cout << "  " << i << ";" << endl;
+				}
+			}
+		}
+	}
+}
+
 
 #define GAI
 
@@ -113,14 +143,23 @@ void main()
 	fill_map(Base, number);
 	print_all_map(Base);
 	string num;
-	cout << "Какой номер хотите распечатать?: "; cin >> num;
-	print_info_number(Base, num);
-	cout << "Введите номер: "; cin >> num;
-	string contravention;
-	cin.get();	//Сatch Enter after num cin;
-	cout << "Введите правонарушение в формате (дата: Правонарушение): "; getline(cin, contravention);
-	insert_new(Base, num, contravention);
-	print_all_map(Base);
+	//cout << "Какой номер хотите распечатать?: "; cin >> num;
+	//print_info_number(Base, num);
+	//cout << "Введите номер: "; cin >> num;
+	//string contravention;
+	//cin.get();	//Сatch Enter after num cin;
+	////cin.ignore();
+	////fflush(stdin);
+	//cout << "Введите правонарушение в формате (дата: Правонарушение): "; getline(cin, contravention);
+	//insert_new(Base, num, contravention);
+	//print_all_map(Base);
+	string smth;
+	cin.get();
+	cout << "Введите дату по которой будет проведен поиск(в формате дд.мм.гггг): "; getline(cin, smth);
+	find_crime_by_smth(Base,smth,"Data");
+	cin.get();
+	cout << "Введите нарушение по которому будет проведен поиск: "; getline(cin, smth);
+	find_crime_by_smth(Base, smth,"Crime");
 #endif // GAI
 
 
