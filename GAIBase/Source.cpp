@@ -29,7 +29,10 @@ void fill_map(map <string, list<string>>& base, unsigned short int elements)
 		for (int i = 0; i < 6; i++)
 		{
 			if (i == 0 || i > 3)number[i] = char(192 + rand() % 31);
-			if (i > 0 && i < 4) number[i] = char(48 + rand() % 9);
+			if (number[i] == 'Ъ' || number[i] == 'Й' || number[i] == 'Ц' || number[i] == 'Г' || number[i] == 'Ш' || number[i] == 'Щ' || number[i] == 'З'||
+				number[i] == 'Ф'|| number[i] == 'Ы'|| number[i] == 'П'|| number[i] == 'Л'|| number[i] == 'Д'|| number[i] == 'Ж'|| number[i] == 'Э'|| number[i] == 'Я'||
+				number[i] == 'Ч'|| number[i] == 'Ь'|| number[i] == 'Б'|| number[i] == 'Ю') { i--;}
+			else if (i > 0 && i < 4) number[i] = char(48 + rand() % 9);
 		}
 		list<string> contravention;
 		for (int i = 1 + rand() % 8; i > 0; i--)
@@ -62,7 +65,6 @@ void fill_map(map <string, list<string>>& base, unsigned short int elements)
 
 void insert_new(map <string, list<string>>& base, string num, string contravention)
 {
-	cout << num << endl;
 	map<string, list<string>>::iterator it = base.find(num);
 	if (it != base.end())
 	{it->second.push_back(contravention);}
