@@ -44,9 +44,11 @@ void fill_map(map <string, list<string>>& base, unsigned short int elements)
 		for (int i = 0; i < 6; i++)
 		{
 			if (i == 0 || i > 3)number[i] = char(192 + rand() % 31);
-			if (number[i] == 'Ъ' || number[i] == 'Й' || number[i] == 'Ц' || number[i] == 'Г' || number[i] == 'Ш' || number[i] == 'Щ' || number[i] == 'З'||
-				number[i] == 'Ф'|| number[i] == 'Ы'|| number[i] == 'П'|| number[i] == 'Л'|| number[i] == 'Д'|| number[i] == 'Ж'|| number[i] == 'Э'|| number[i] == 'Я'||
-				number[i] == 'Ч'|| number[i] == 'Ь'|| number[i] == 'Б'|| number[i] == 'Ю') { i--;}
+			if (number[i] == 'Ъ' || number[i] == 'Й' || number[i] == 'Ц' || number[i] == 'Г' || number[i] == 'Ш' || number[i] == 'Щ' || number[i] == 'З' ||
+				number[i] == 'Ф' || number[i] == 'Ы' || number[i] == 'П' || number[i] == 'Л' || number[i] == 'Д' || number[i] == 'Ж' || number[i] == 'Э' || number[i] == 'Я' ||
+				number[i] == 'Ч' || number[i] == 'Ь' || number[i] == 'Б' || number[i] == 'Ю') {
+				i--;
+			}
 			else if (i > 0 && i < 4) number[i] = char(48 + rand() % 9);
 		}
 		list<string> contravention;
@@ -83,8 +85,10 @@ void insert_new(map <string, list<string>>& base, string num, string contraventi
 {
 	map<string, list<string>>::iterator it = base.find(num);
 	if (it != base.end())
-	{it->second.push_back(contravention);}
-	else 
+	{
+		it->second.push_back(contravention);
+	}
+	else
 	{
 		list<string> second;
 		second.emplace_front(contravention);
@@ -94,7 +98,7 @@ void insert_new(map <string, list<string>>& base, string num, string contraventi
 
 void print_all_map(map <string, list<string>>& base)
 {
-	for (map<string,list<string>>::iterator it = base.begin(); it != base.end(); ++it)
+	for (map<string, list<string>>::iterator it = base.begin(); it != base.end(); ++it)
 	{
 		cout << it->first << endl;
 		for (string i : it->second)cout << "  " << i << ";" << endl;
@@ -125,21 +129,21 @@ map <string, list<string>> read_from_file(map <string, list<string>>& base)
 			string buffer;
 			getline(ReadFromFile, str, '\n');
 			int charNum = 256 + int(str[0]);
-			if (charNum >= 192 && charNum <= 223) 
+			if (charNum >= 192 && charNum <= 223)
 			{
-				Number = str; 
+				Number = str;
 				buffer = str;
 			}
-			else if(charNum == 288)
+			else if (charNum == 288)
 			{
 				charNum = str.size();
-				str.resize(charNum-1);
+				str.resize(charNum - 1);
 				Contravention = str;
 			}
-			if(i&&buffer!=Number)insert_new(base, Number, Contravention);
+			if (i && buffer != Number)insert_new(base, Number, Contravention);
 		}
+		ReadFromFile.close();
 	}
-	ReadFromFile.close();
 	return base;
 }
 
@@ -173,8 +177,10 @@ void find_crime_by_smth(map <string, list<string>>& base, string& str, string wh
 			{
 				if (i.compare(0, i.find_first_of(":"), str) == 0)
 				{
-					if(!it->first.compare(rep) == 0)
-					{rep = it->first; cout << it->first << endl;}
+					if (!it->first.compare(rep) == 0)
+					{
+						rep = it->first; cout << it->first << endl;
+					}
 					cout << "  " << i << ";" << endl;
 				}
 			}
@@ -183,7 +189,9 @@ void find_crime_by_smth(map <string, list<string>>& base, string& str, string wh
 				if (i.compare(i.find_first_of(":") + 2, i.size(), str) == 0)
 				{
 					if (!it->first.compare(rep) == 0)
-					{rep = it->first; cout << it->first << endl;}
+					{
+						rep = it->first; cout << it->first << endl;
+					}
 					cout << "  " << i << ";" << endl;
 				}
 			}
@@ -198,7 +206,7 @@ void find_crime_by_smth(map <string, list<string>>& base, string& str, string wh
 
 void main()
 {
-	setlocale(LC_ALL,"Russian");
+	setlocale(LC_ALL, "Russian");
 #ifdef  GAI_CR_AND_FUNC
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
@@ -222,10 +230,10 @@ void main()
 	string smth;
 	//cin.get();
 	cout << "Введите дату по которой будет проведен поиск(в формате дд.мм.гггг): "; getline(cin, smth);
-	find_crime_by_smth(Base,smth,"Data");
+	find_crime_by_smth(Base, smth, "Data");
 	//cin.get();
 	cout << "Введите нарушение по которому будет проведен поиск: "; getline(cin, smth);
-	find_crime_by_smth(Base, smth,"Crime");
+	find_crime_by_smth(Base, smth, "Crime");
 #endif //  GAI_CR_AND_FUNC
 
 #ifdef WRITE_TO_FILE
