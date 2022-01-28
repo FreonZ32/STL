@@ -43,7 +43,7 @@ class Car
         double FillLevel;
         bool IsOnReserve;
         bool IsComplete;
-       // void Refuel(double liters);
+      
 
     public:
         double get_Fill_Level()const
@@ -67,7 +67,8 @@ class Car
             cout << "Кол-во топлива: " << FillLevel << endl;
             if (IsComplete)cout << "Топливо кончилось" << endl;
             else if (IsOnReserve)cout << "Загорелся чек топлива" << endl;
-        }
+        } 
+        void Refuel(double liters);
         /*class FuelTankDisplay
         {
             double FillLevel;
