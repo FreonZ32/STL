@@ -1,4 +1,5 @@
 #include<iostream>
+#include<Windows.h>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -8,7 +9,7 @@ class Car
 {
     class Engine;
     class FuelTank;
-    class FuelTankDisplay;
+   // class FuelTankDisplay;
 
     class Engine
     {
@@ -28,30 +29,30 @@ class Car
         void EngineStop()
         {EngineIsRunning = false;}
 
-        void Consume(FuelTank& FueTan,Engine& Eng)
+        void Consume(FuelTank& FueTan)
         {
             double fillLevel = FueTan.get_Fill_Level();
             fillLevel -= 0.0003;
-            FueTan.set_FillLevel(fillLevel,Eng);
+            FueTan.set_FillLevel(fillLevel,*this);
         }
 
-        void RunningIdle();
+       // void RunningIdle();
     };
     class FuelTank
     { 
         double FillLevel;
         bool IsOnReserve;
         bool IsComplete;
-        void Refuel(double liters);
+       // void Refuel(double liters);
 
     public:
         double get_Fill_Level()const
         {return FillLevel;}
         void set_FillLevel(double FillLevel, Engine& Eng)
         {
-            if (FillLevel<=double(5)) { this->IsOnReserve = true; }
-            else if (FillLevel == 0) { Eng.EngineStop(); this->IsComplete = true; }
-            else this->FillLevel = FillLevel;
+            if (FillLevel <= double(5)) { this->IsOnReserve = true;}
+            if (FillLevel <= 0) { Eng.EngineStop(); this->FillLevel = 0; this->IsComplete = true; return; }
+            this->FillLevel = FillLevel;
         }
         FuelTank(double FillLevel = 20,bool IsOnReserve = false,bool IsComplete = false)
         {
@@ -59,35 +60,54 @@ class Car
             this->IsOnReserve = IsOnReserve;
             this->IsComplete = IsComplete;
         }
-        FuelTank(){}
-        class FuelTankDisplay
+        ~FuelTank(){}
+
+        void print()
+        {
+            cout << "Кол-во топлива: " << FillLevel << endl;
+            if (IsComplete)cout << "Топливо кончилось" << endl;
+            else if (IsOnReserve)cout << "Загорелся чек топлива" << endl;
+        }
+        /*class FuelTankDisplay
         {
             double FillLevel;
             bool IsOnReserve;
             bool IsComplete;
-        };
+        public:
+            FuelTankDisplay(){}
+            ~FuelTankDisplay(){}
+        };*/
        // friend class Engine;
     };
     Engine Eng;
     FuelTank FueTan;
-    FuelTank::FuelTankDisplay FueTanDis;
+   // FuelTank::FuelTankDisplay FueTanDis;
 public:
     Engine get_Eng()const
     {return Eng;}
     FuelTank get_FueTan()const
     {return FueTan;}
-    FuelTank::FuelTankDisplay get_FueTanDis()
-    {return FueTanDis;}
-
+   /* FuelTank::FuelTankDisplay get_FueTanDis()
+    {return FueTanDis;}*/
+    Car(){}
+    ~Car(){}
     void CarON()
     {
-        char C;
-        C = getchar();
-        while (C == 13)
+        while(true)
         {
-
+            cout << "CarOn" << endl;
+            Eng.Consume(FueTan);
+            FueTan.print();
+            Sleep(1000);
+            system("cls");
         }
-
     }
 };
+
+void main()
+{
+    setlocale(LC_ALL, "rus");
+    Car Chepyrka;
+    Chepyrka.CarON();
+}
 

@@ -167,8 +167,4 @@ void main()
 	fill_map(Base, number);
 	print_all_map(Base);*/
 
-	list<int> list = { 1,2,3,4,5 };
-	int TimeData;
-	TimeData A();
-
 }
