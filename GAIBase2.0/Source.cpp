@@ -59,6 +59,11 @@ public:
 		set_year(year);
 		set_month(month);
 		set_day(day);
+		cout << "sssss";
+	}
+	TimeData(const TimeData& other)
+	{
+		*this = other;
 	}
 	~TimeData(){}
 	TimeData& operator=(const TimeData& other)
@@ -154,11 +159,16 @@ void print_all_map(map <string, list<NumberInfo>>& base)
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-	SetConsoleCP(1251);
+	/*SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	map <string, list<NumberInfo>>Base;
 	int number = 0;
 	cout << "Сколько элементов хотите вставить?: "; cin >> number;
 	fill_map(Base, number);
-	print_all_map(Base);
+	print_all_map(Base);*/
+
+	list<int> list = { 1,2,3,4,5 };
+	int TimeData;
+	TimeData A();
+
 }
